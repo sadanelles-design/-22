@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Анатомия страха — тест</title>
+<meta name="description" content="Авторский опросник: как устроен твой страх и что его поддерживает.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Шрифты с кириллицей: Forum (заголовки), Cormorant Garamond (текст), Marck Script (рукописные акценты), Playfair Display (буквицы) -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Forum&family=Marck+Script&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+<script>document.documentElement.className += ' js';</script>
+<style>
+/* ==========================================================
+   1. ПЕРЕМЕННЫЕ И БАЗА
+   ========================================================== */
+:root{
+  --black:#050403; --coal:#0b0806; --char:#15100b;
+  --pumpkin-d:#c2561a; --pumpkin:#e07a1f; --pumpkin-l:#f29a3c;
+  --amber:#ffb95a; --gold:#b8955a;
+  --text:#e9dcc4; --text2:#a89a82;
+  --lace:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='18' viewBox='0 0 36 18' fill='none' stroke='%23b8955a' stroke-width='1'%3E%3Cpath d='M0 9Q9 0 18 9T36 9'/%3E%3Cpath d='M0 9Q9 18 18 9T36 9' opacity='.6'/%3E%3Ccircle cx='9' cy='4.5' r='1.6' fill='%23b8955a'/%3E%3Ccircle cx='27' cy='13.5' r='1.6' fill='%23b8955a'/%3E%3Ccircle cx='18' cy='9' r='2.6'/%3E%3C/svg%3E");
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .8 0 0 0 0 .6 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --display:'Forum','Cormorant Garamond',Georgia,serif;
+  --script:'Marck Script','Cormorant Garamond',cursive;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--text); font-family:var(--serif); font-size:19px; line-height:1.65;
+  background:var(--black); min-height:100vh; overflow-x:hidden;
+}
+/* Старая бумага: зерно, пятна-разводы, виньетка */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 40% at 18% 22%, rgba(120,60,20,.16), transparent 70%),
+    radial-gradient(ellipse 50% 35% at 82% 60%, rgba(90,40,12,.14), transparent 70%),
+    radial-gradient(ellipse 45% 30% at 30% 88%, rgba(100,50,15,.12), transparent 70%),
+    linear-gradient(180deg,#0b0806,#15100b 50%,#0b0806);
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:var(--grain); opacity:.07; mix-blend-mode:screen;
+  box-shadow:inset 0 0 220px 40px #000;
+}
+a{color:var(--amber); text-decoration:underline; text-decoration-color:rgba(255,185,90,.4); text-underline-offset:4px; transition:text-shadow .3s, text-decoration-color .3s}
+a:hover{text-shadow:0 0 12px rgba(255,185,90,.9); text-decoration-color:var(--amber)}
+:focus-visible{outline:2px solid var(--amber); outline-offset:3px; border-radius:3px}
+.sr{position:absolute!important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.wrap{width:min(860px,100% - 40px); margin-inline:auto}
+svg{display:block}
+
+/* ==========================================================
+   2. ТИПОГРАФИКА
+   ========================================================== */
+h1,h2,h3{font-family:var(--display); font-weight:400; margin:0; line-height:1.15; letter-spacing:.03em}
+h1{font-size:clamp(2.6rem,9vw,5.6rem); color:#ffd9a0; text-transform:uppercase; text-align:center;
+   text-shadow:0 0 8px rgba(255,185,90,.75),0 0 28px rgba(242,154,60,.55),0 0 70px rgba(194,86,26,.5); animation:glow 5s ease-in-out infinite}
+h2{font-size:clamp(1.7rem,5vw,2.5rem); color:var(--pumpkin-l); text-shadow:0 0 18px rgba(224,122,31,.35)}
+h3{font-size:1.4rem; color:var(--amber)}
+.num{font-style:italic; font-family:var(--serif); color:var(--gold); font-size:1.15rem; letter-spacing:.2em; display:block; margin-bottom:.3rem}
+.sub{font-style:italic; font-size:clamp(1.25rem,3.5vw,1.7rem); color:var(--text2); text-align:center; margin:.8rem 0 0}
+.script{font-family:var(--script); color:var(--amber); font-size:1.5rem; line-height:1.3}
+p{margin:0 0 1em}
+.glow{color:#ffd9a0; text-shadow:0 0 10px rgba(255,185,90,.8),0 0 24px rgba(242,154,60,.45)}
+.underflame{background:linear-gradient(transparent 62%,rgba(224,122,31,.3) 62%,rgba(224,122,31,.3) 92%,transparent 92%); padding:0 .15em}
+.muted{color:var(--text2)}
+/* Кружевная буквица */
+/* (буквица оформляется классом .dc — см. блок «Буквица, Да/Нет…» ниже) */
+
+/* ==========================================================
+   3. ДЕКОР: кружево, паутина, свечи, тыквы, пауки
+   ========================================================== */
+.lace-div{height:18px; margin:3.5rem auto; width:min(560px,90%); background:var(--lace) repeat-x center; opacity:.85;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent); mask:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)}
+.web{position:absolute; width:210px; height:210px; opacity:.5; pointer-events:none}
+.web.tl{top:0; left:0} .web.tr{top:0; right:0; transform:scaleX(-1)}
+.web.br{bottom:0; right:0; transform:scale(-1,-1)} .web.bl{bottom:0; left:0; transform:scaleY(-1)}
+.web.sm{width:120px; height:120px}
+.candle{position:relative; flex:none}
+.candle svg{overflow:visible}
+.flame{transform-box:fill-box; transform-origin:50% 100%; animation:flicker 2.2s infinite ease-in-out}
+.flame.b{animation-duration:1.7s; animation-delay:-.6s} .flame.c{animation-duration:2.6s; animation-delay:-1.2s}
+.halo{animation:halo 3s infinite ease-in-out}
+@property --l{syntax:'<length>'; inherits:true; initial-value:110px}
+.spider{position:absolute; top:0; width:60px; height:0; --l:110px; transform-origin:50% 0; animation:sway 6s ease-in-out infinite, descend 16s ease-in-out infinite; pointer-events:none}
+.spider .thread{position:absolute; left:50%; top:0; width:1px; height:var(--l); background:linear-gradient(var(--gold),rgba(184,149,90,.4))}
+.spider .hs{position:absolute; left:0; width:100%; top:calc(var(--l) - 15px)}
+@keyframes descend{0%,100%{--l:100px}50%{--l:150px}}
+.deco{position:absolute; pointer-events:none; opacity:.9}
+@keyframes flicker{0%,100%{transform:scale(1,1) skewX(0)}20%{transform:scale(.94,1.06) skewX(2deg)}45%{transform:scale(1.04,.95) skewX(-2deg)}70%{transform:scale(.97,1.05) skewX(1.5deg)}}
+@keyframes halo{0%,100%{opacity:.85}50%{opacity:.6}}
+@keyframes glow{0%,100%{text-shadow:0 0 8px rgba(255,185,90,.75),0 0 28px rgba(242,154,60,.55),0 0 70px rgba(194,86,26,.5)}50%{text-shadow:0 0 6px rgba(255,185,90,.6),0 0 22px rgba(242,154,60,.45),0 0 55px rgba(194,86,26,.4)}}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+
+/* ==========================================================
+   4. HERO
+   ========================================================== */
+.hero{position:relative; padding:56px 0 0; text-align:center; overflow:hidden}
+.candles{display:flex; justify-content:center; align-items:flex-end; gap:clamp(18px,6vw,48px); margin-bottom:1rem}
+.hero .lace-div{margin:1.5rem auto 2rem}
+.hero .intro{max-width:640px; margin:2rem auto 1rem; text-align:left}
+.disclaimer{max-width:640px; margin:1.2rem auto 0; border:1px solid rgba(184,149,90,.4); padding:.9rem 1.2rem; color:var(--text2); font-style:italic; font-size:1.05rem; text-align:center; background:rgba(5,4,3,.5)}
+.pumpkins{display:flex; justify-content:center; align-items:flex-end; gap:clamp(0px,2vw,18px); margin-top:2.5rem; padding-bottom:0; position:relative}
+.pumpkins::after{content:""; position:absolute; left:0; right:0; bottom:0; height:46px; background:linear-gradient(transparent,var(--coal)); pointer-events:none}
+
+/* ==========================================================
+   5. СЕКЦИИ И КАРТОЧКИ
+   ========================================================== */
+section.part{position:relative; padding:20px 0 0}
+.head{text-align:center; margin-bottom:2rem; position:relative}
+.head .candle{display:flex; justify-content:center; margin:0 auto .4rem}
+.card{position:relative; background:linear-gradient(160deg,rgba(21,16,11,.92),rgba(11,8,6,.95)); border:1px solid rgba(184,149,90,.45);
+  padding:34px clamp(18px,4vw,38px) 30px; margin:1.6rem 0; transition:box-shadow .4s, border-color .4s, transform .4s}
+.card:hover{border-color:var(--gold); box-shadow:0 0 34px rgba(224,122,31,.18), inset 0 0 40px rgba(224,122,31,.05)}
+.card.laced::before,.card.laced::after{content:""; position:absolute; left:10px; right:10px; height:18px; background:var(--lace) repeat-x center; opacity:.75}
+.card.laced::before{top:5px} .card.laced::after{bottom:5px}
+.card.top{border-color:var(--amber); box-shadow:0 0 38px rgba(255,185,90,.3), inset 0 0 50px rgba(224,122,31,.1)}
+.card.top .flag{display:inline-block; font-family:var(--script); font-size:1.4rem; color:var(--amber); text-shadow:0 0 12px rgba(255,185,90,.8); margin-bottom:.4rem}
+.note{position:relative; background:linear-gradient(170deg,#2a2013,#17110a); border:1px solid rgba(184,149,90,.5); padding:1.3rem 1.5rem 1.3rem 5.2rem; margin:2rem 0; font-style:italic; box-shadow:0 10px 30px rgba(0,0,0,.6); transform:rotate(-.4deg)}
+.note .seal{position:absolute; left:14px; top:50%; transform:translateY(-50%) rotate(-8deg); width:60px; height:60px}
+.hint{color:var(--text2); font-size:1.05rem; font-style:italic}
+
+/* Кастомные чекбоксы — восковые печати */
+.checks{list-style:none; margin:0; padding:0}
+.checks li{margin:0}
+.chk{display:flex; gap:16px; align-items:flex-start; padding:.65rem .4rem; cursor:pointer; border-radius:4px; transition:background .3s}
+.chk:hover{background:rgba(224,122,31,.07)}
+.chk input{position:absolute; opacity:0; width:1px; height:1px}
+.mark{flex:none; width:34px; height:34px; border-radius:50%; margin-top:2px; border:1.5px solid var(--gold); background:radial-gradient(circle,#0b0806 60%,#1d140b); position:relative; transition:all .3s}
+.mark::after{content:""; position:absolute; inset:6px; border-radius:50%; border:1px solid transparent; transition:all .3s}
+.chk input:checked + .mark{background:radial-gradient(circle at 35% 30%,#e0671f,#a4411a 55%,#5e2010); border-color:#e07a1f; box-shadow:0 0 14px rgba(224,122,31,.65), inset 0 -3px 5px rgba(0,0,0,.5), inset 0 2px 3px rgba(255,200,120,.35)}
+.chk input:checked + .mark::after{border-color:rgba(255,200,130,.6)}
+.chk input:checked + .mark::before{content:""; position:absolute; left:11px; top:6px; width:8px; height:15px; border:solid #ffd9a0; border-width:0 2px 2px 0; transform:rotate(40deg)}
+.chk input:focus-visible + .mark{outline:2px solid var(--amber); outline-offset:3px}
+.chk .t{flex:1}
+.blank{font:inherit; color:var(--amber); background:transparent; border:0; border-bottom:1px dashed var(--gold); width:6.5em; padding:0 .2em; text-align:center; min-width:3em}
+.blank.wide{width:min(16em,60vw)}
+.counter{margin-top:1.1rem; font-style:italic; color:var(--gold); border-top:1px solid rgba(184,149,90,.3); padding-top:.7rem; display:flex; align-items:center; gap:.7rem}
+.counter .bar{flex:1; height:6px; background:#1d140b; border:1px solid rgba(184,149,90,.4); border-radius:4px; overflow:hidden; max-width:200px}
+.counter .bar i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--pumpkin-d),var(--amber)); box-shadow:0 0 8px var(--pumpkin); transition:width .4s}
+
+/* Дневник: линованные поля */
+.diary{display:grid; gap:1.1rem}
+.diary label{display:block}
+.diary .lbl{font-family:var(--display); color:var(--amber); font-size:1.15rem}
+.diary .lbl span{font-family:var(--serif); font-style:italic; color:var(--text2); font-size:1.02rem; margin-left:.5rem}
+textarea,.diary textarea{
+  width:100%; display:block; font:inherit; color:var(--text); resize:vertical; min-height:calc(2 * 2.05em + 6px);
+  background:repeating-linear-gradient(transparent 0 calc(2.05em - 1px), rgba(184,149,90,.35) calc(2.05em - 1px) 2.05em);
+  border:0; border-left:2px solid rgba(194,86,26,.55); padding:0 .6rem; line-height:2.05em; margin-top:.2rem;
+}
+textarea:focus{background-color:rgba(224,122,31,.05)}
+
+/* ==========================================================
+   6. ТЕСТ
+   ========================================================== */
+.progress{position:sticky; top:0; z-index:20; background:rgba(5,4,3,.92); backdrop-filter:blur(6px); border-bottom:1px solid rgba(184,149,90,.35); padding:8px 0}
+.progress .in{display:flex; align-items:center; gap:14px; width:min(860px,100% - 40px); margin-inline:auto; font-style:italic; font-size:1rem; color:var(--text2)}
+.wax{position:relative; flex:1; height:12px; border-radius:6px; background:#1d140b; border:1px solid rgba(184,149,90,.45)}
+.wax i{position:absolute; left:0; top:-1px; bottom:-1px; width:0; border-radius:6px; background:linear-gradient(180deg,#f3e3c0,#cdb48a 60%,#9c8460); transition:width .4s}
+.wax i::after{content:""; position:absolute; right:-4px; top:-13px; width:10px; height:16px; border-radius:50% 50% 50% 50%/65% 65% 35% 35%; background:radial-gradient(ellipse at 50% 70%,#fff3c4,#ffb95a 45%,#e07a1f 75%,transparent); filter:drop-shadow(0 0 7px #ffb95a); animation:flicker 1.8s infinite ease-in-out; transform-origin:50% 100%}
+.scalekey{display:flex; flex-wrap:wrap; gap:.3rem 1.2rem; justify-content:center; color:var(--text2); font-style:italic; margin:1rem 0 2rem}
+.scalekey b{font-style:normal; color:var(--amber); font-weight:600}
+fieldset{border:0; padding:0; margin:0; min-width:0}
+.q{padding:1.1rem 0; border-bottom:1px dotted rgba(184,149,90,.3)}
+.q:last-of-type{border-bottom:0}
+.q legend{padding:0; margin-bottom:.8rem; float:left; width:100%}
+.q legend .n{font-style:italic; color:var(--gold); margin-right:.5rem}
+.scale{display:flex; flex-wrap:wrap; gap:10px 14px; clear:both}
+.med{display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; width:52px}
+.med input{position:absolute; opacity:0; width:1px; height:1px}
+.med .c{width:46px; height:46px; border-radius:50%; display:grid; place-items:center; font-family:var(--display); font-size:1.25rem; color:var(--gold);
+  border:2px solid var(--gold); background:radial-gradient(circle at 35% 30%,#2a1d10,#0b0806); box-shadow:0 0 0 3px #0b0806, 0 0 0 4px rgba(184,149,90,.35), inset 0 2px 4px rgba(255,220,160,.12); transition:all .25s}
+.med:hover .c{border-color:var(--amber); color:var(--amber)}
+.med input:checked + .c{background:radial-gradient(circle at 35% 30%,#ffa04a,#e07a1f 55%,#a4411a); color:#1a0d04; border-color:#ffd9a0; box-shadow:0 0 0 3px #0b0806, 0 0 0 4px var(--amber), 0 0 22px rgba(242,154,60,.85)}
+.med input:focus-visible + .c{outline:2px solid var(--amber); outline-offset:6px}
+.med .w{display:none; font-size:.85rem; color:var(--text2); text-align:center; line-height:1.1}
+@media(min-width:700px){.med{width:78px}.med .w{display:block}.scale{gap:10px 8px}}
+.blockres{margin:1rem 0 0; padding:.7rem 1rem; border-left:3px solid var(--pumpkin-d); background:rgba(224,122,31,.07); font-style:italic; color:var(--text)}
+.blockres b{color:var(--amber); font-style:normal}
+.actions{display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin:2.5rem 0 1rem}
+.btn{font:inherit; font-family:var(--display); letter-spacing:.08em; font-size:1.15rem; color:#1a0d04; cursor:pointer; padding:.85rem 2rem; min-height:48px;
+  border:1px solid #ffd9a0; background:linear-gradient(180deg,var(--pumpkin-l),var(--pumpkin-d)); box-shadow:0 0 22px rgba(224,122,31,.45), inset 0 1px 0 rgba(255,235,190,.5); transition:all .3s}
+.btn:hover{box-shadow:0 0 34px rgba(242,154,60,.8); transform:translateY(-1px)}
+.btn.ghost{background:transparent; color:var(--gold); border-color:var(--gold); box-shadow:none}
+.btn.ghost:hover{color:var(--amber); border-color:var(--amber); box-shadow:0 0 18px rgba(184,149,90,.3)}
+dialog{background:var(--char); color:var(--text); border:1px solid var(--gold); padding:1.6rem 1.8rem; max-width:min(440px,90vw); font-size:1.1rem; box-shadow:0 0 60px #000}
+dialog::backdrop{background:rgba(0,0,0,.8)}
+dialog .actions{margin:1.2rem 0 0}
+
+/* Результаты */
+#results{display:none}
+#results.on{display:block}
+#results h2:focus{outline:none}
+.big{display:flex; flex-wrap:wrap; gap:1.5rem 3rem; justify-content:center; text-align:center; margin:1.2rem 0}
+.big div b{display:block; font-family:var(--display); font-size:2.6rem; color:var(--amber); text-shadow:0 0 18px rgba(255,185,90,.6); font-weight:400; line-height:1.1}
+.big div span{color:var(--text2); font-style:italic}
+.therm{margin:1.2rem 0}
+.therm .row{margin:1rem 0}
+.therm .lab{display:flex; justify-content:space-between; gap:1rem; margin-bottom:.35rem}
+.therm .lab b{font-family:var(--display); font-weight:400; color:var(--text)}
+.therm .lab span{color:var(--amber); font-style:italic; white-space:nowrap}
+.tube{position:relative; height:16px; border-radius:9px; background:#120c07; border:1px solid var(--gold); box-shadow:inset 0 2px 6px #000}
+.tube i{position:absolute; left:2px; top:2px; bottom:2px; border-radius:7px; background:linear-gradient(90deg,var(--pumpkin-d),var(--pumpkin),var(--amber)); box-shadow:0 0 12px rgba(224,122,31,.7); width:0; transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.tube.off i{background:repeating-linear-gradient(45deg,#2a2013 0 6px,#1d140b 6px 12px); box-shadow:none}
+.ticks{display:flex; justify-content:space-between; color:var(--text2); font-size:.9rem; margin-top:2px; padding:0 2px}
+.cap{font-style:italic; color:var(--text2); font-size:1.05rem; margin-top:.3rem}
+.grid{display:grid; gap:1.2rem}
+.warn{border:1px solid rgba(184,149,90,.5); padding:1rem 1.3rem; background:rgba(5,4,3,.55); margin-top:1.5rem; font-style:italic}
+
+/* Финальная плашка-приглашение */
+.invite{position:relative; margin:4rem auto 3rem; text-align:center; padding:56px clamp(22px,5vw,60px) 44px; background:radial-gradient(ellipse at 50% 0%,rgba(224,122,31,.2),transparent 70%),linear-gradient(170deg,#241a0f,#120c07);
+  border:2px solid var(--gold); box-shadow:0 0 0 6px #0b0806, 0 0 0 7px rgba(184,149,90,.5), 0 0 70px rgba(224,122,31,.3), inset 0 0 60px rgba(224,122,31,.1)}
+.invite::before,.invite::after{content:""; position:absolute; left:14px; right:14px; height:18px; background:var(--lace) repeat-x center}
+.invite::before{top:12px} .invite::after{bottom:12px}
+.invite .seal{width:84px; height:84px; margin:-14px auto 1rem}
+.invite p{font-size:clamp(1.25rem,3.4vw,1.55rem); line-height:1.6; margin:0}
+footer{position:relative; text-align:center; padding:30px 0 0; color:var(--text2); font-style:italic; font-size:1.05rem}
+
+/* ==========================================================
+   7. ПОЯВЛЕНИЕ И ДОСТУПНОСТЬ
+   ========================================================== */
+.js .reveal{opacity:0; transform:translateY(22px); transition:opacity .9s ease, transform .9s ease}
+.js .reveal.in{opacity:1; transform:none}
+/* ===== Буквица, Да/Нет, нумерованные ответы ===== */
+body{overflow-x:clip}
+.part{overflow-x:clip}
+.dropcap{display:flow-root}
+.dc{float:left; font-family:'Playfair Display',Georgia,serif; font-weight:900; font-size:3.1em; line-height:1; padding:.06em .17em .1em; margin:.06em .6rem .15em 0;
+  color:#ffd9a0; background:radial-gradient(circle at 30% 25%,#2a1d10,#0b0806); border:1px solid var(--gold); outline:1px solid rgba(184,149,90,.4); outline-offset:3px;
+  text-shadow:0 0 12px rgba(255,185,90,.85),0 0 26px rgba(224,122,31,.5); box-shadow:0 0 20px rgba(224,122,31,.25), inset 0 0 14px rgba(184,149,90,.2)}
+.yq{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.7rem 1.5rem; padding:.95rem 0; border-bottom:1px dotted rgba(184,149,90,.3)}
+.yq:last-of-type{border-bottom:0}
+.yq .yt{flex:1 1 320px}
+.yq .n{font-style:italic; color:var(--gold); margin-right:.5rem}
+.yn{display:flex; gap:12px}
+.yn label{cursor:pointer}
+.yn input{position:absolute; opacity:0; width:1px; height:1px}
+.yn span{display:grid; place-items:center; min-width:92px; min-height:48px; padding:0 1.3rem; font-family:var(--display); font-size:1.15rem; letter-spacing:.08em; color:var(--gold); border:1.5px solid var(--gold); border-radius:40px;
+  background:radial-gradient(circle at 35% 30%,#2a1d10,#0b0806); box-shadow:0 0 0 3px #0b0806, 0 0 0 4px rgba(184,149,90,.3); transition:all .25s}
+.yn label:hover span{color:var(--amber); border-color:var(--amber)}
+.yn input:checked + span{background:radial-gradient(circle at 35% 30%,#ffa04a,#e07a1f 55%,#a4411a); color:#1a0d04; border-color:#ffd9a0; box-shadow:0 0 0 3px #0b0806, 0 0 0 4px var(--amber), 0 0 20px rgba(242,154,60,.8)}
+.yn input:focus-visible + span{outline:2px solid var(--amber); outline-offset:5px}
+.mark.num{display:grid; place-items:center; width:40px; height:40px; font-family:var(--display); font-size:1.2rem; color:var(--gold)}
+.chk input:checked + .mark.num{color:#1a0d04; font-weight:700}
+.chk input:checked + .mark.num::before{display:none}
+.ans{margin:.1rem 0 .9rem 56px; width:calc(100% - 56px); overflow:hidden; resize:none; min-height:2.05em; border:1px solid rgba(184,149,90,.25); border-left:2px solid rgba(194,86,26,.6); padding:0 .8rem; background-color:rgba(5,4,3,.45)}
+.ans::placeholder{color:#8d806a; font-style:italic}
+
+/* ===== Декор: свет свечей, летучие мыши, ползущие пауки, чучело, мини-орнаменты ===== */
+.candles{position:relative}
+.candles::before{content:""; position:absolute; left:50%; top:-30px; width:min(620px,110%); height:300px; transform:translateX(-50%);
+  background:radial-gradient(ellipse at 50% 38%,rgba(255,185,90,.34),rgba(224,122,31,.12) 45%,transparent 70%); animation:halo 2.4s ease-in-out infinite; pointer-events:none}
+.candles .candle{filter:drop-shadow(0 0 14px rgba(255,185,90,.45))}
+.bat{position:absolute; top:0; width:46px; pointer-events:none; opacity:.95}
+.crawl{position:absolute; left:0; width:84px; pointer-events:none; z-index:2; animation:crawlR 38s linear infinite}
+.crawl.rev{animation-name:crawlL; left:auto; right:0}
+.crawl .cr svg{animation:wob .5s ease-in-out infinite}
+.crawl.rev .cr{transform:scaleX(-1)}
+.la,.lb{transform-origin:66px 30px; animation:legA .46s ease-in-out infinite}
+.lb{animation-delay:-.23s}
+@keyframes crawlR{from{transform:translateX(-120px)}to{transform:translateX(calc(100vw + 40px))}}
+@keyframes crawlL{from{transform:translateX(120px)}to{transform:translateX(calc(-100vw - 40px))}}
+@keyframes wob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
+@keyframes legA{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+.orn{display:inline-block; vertical-align:-.4em; margin-right:.5em}
+.orn svg{display:inline-block; height:1.7em; width:auto; overflow:visible}
+.footscene{display:flex; justify-content:space-between; align-items:flex-end; padding:0 clamp(6px,3vw,40px); margin-top:2rem; overflow:hidden}
+.footscene .fl,.footscene .fr{display:flex; align-items:flex-end}
+.footscene [data-pumpkin] svg{width:clamp(80px,21vw,170px); height:auto}
+.footscene svg{filter:drop-shadow(0 0 18px rgba(224,122,31,.45))}
+.footscene .scare svg{width:clamp(110px,26vw,210px); height:auto; transform-origin:50% 100%; animation:scareglow 3.4s ease-in-out infinite, scaresway 5.5s ease-in-out infinite}
+.footscene .eyes{animation:eyeglow 2.8s ease-in-out infinite}
+@keyframes scaresway{0%,100%{transform:rotate(-3.5deg)}50%{transform:rotate(3.5deg)}}
+@keyframes eyeglow{0%,100%{opacity:1}50%{opacity:.7}}
+@keyframes scareglow{0%,100%{filter:drop-shadow(0 0 22px rgba(255,185,90,.6))}50%{filter:drop-shadow(0 0 12px rgba(255,185,90,.35))}}
+.invite{overflow:visible}
+.invite .bat{right:12%; top:-8px; width:44px}
+/* ===== Больше ползущих пауков ===== */
+.crawl{width:110px}
+.crawl svg{filter:drop-shadow(0 0 3px rgba(255,185,90,.4))}
+.crawl.fixed{position:fixed; top:auto; bottom:6px; z-index:30; width:96px; animation-duration:32s}
+.crawl.fixed.rev{bottom:64px; animation-duration:44s}
+.lw{position:relative; overflow-x:clip; margin:3.5rem 0}
+.lw .lace-div{margin:0 auto}
+.lw .crawl{top:-24px; width:90px; animation-duration:30s}
+/* ===== Колыхание пламени по нажатию ===== */
+.candle{cursor:pointer; -webkit-tap-highlight-color:transparent}
+.orn:has(.flame){cursor:pointer}
+.candle.blow .flame,.orn.blow .flame{animation:blow 1.5s ease-in-out 1}
+.candle.blow .halo{animation:haloblow 1.5s ease-in-out 1}
+@keyframes blow{0%{transform:scale(1,1) skewX(0)}12%{transform:scale(.78,.82) skewX(-24deg)}30%{transform:scale(.88,.9) skewX(20deg)}50%{transform:scale(.84,.9) skewX(-14deg)}72%{transform:scale(.95,.98) skewX(8deg)}100%{transform:scale(1,1) skewX(0)}}
+@keyframes haloblow{0%,100%{opacity:.85}30%{opacity:.3}}
+.motionbtn{position:fixed; left:14px; bottom:14px; z-index:40; font-size:1rem; padding:.55rem 1.1rem; min-height:44px; background:rgba(5,4,3,.92)}
+@media(prefers-reduced-motion:reduce){html:not(.motion-on) .crawl,html:not(.motion-on) .flyer{display:none}}
+/* ===== Летучие мыши покачиваются на лапках (кроме шапки и низа страницы) ===== */
+.bat{transform-origin:50% 0; animation:batswing 4.6s ease-in-out infinite}
+.bat svg{transform-origin:50% 0; animation:battwitch 7s ease-in-out infinite}
+.bat:nth-of-type(2n){animation-duration:5.4s; animation-delay:-1.8s}
+.hero .bat{animation:none}
+.hero .bat svg{animation:none}
+@keyframes batswing{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@keyframes battwitch{0%,82%,100%{transform:scaleX(1)}88%{transform:scaleX(.88)}94%{transform:scaleX(1.04)}}
+/* ===== Летающие летучие мыши (немного) ===== */
+.flyer{position:absolute; left:0; width:74px; z-index:2; pointer-events:none; animation:flyR 28s linear infinite}
+.flyer.rev{left:auto; right:0; animation-name:flyL}
+.fy{animation:bob 3.4s ease-in-out infinite}
+.flyer svg{filter:drop-shadow(0 0 4px rgba(255,185,90,.35))}
+.flyer.rev svg{transform:scaleX(-1)}
+.wl,.wr{animation:flapL .34s ease-in-out infinite alternate}
+.wl{transform-origin:54px 30px}
+.wr{transform-origin:66px 30px; animation-name:flapR}
+@keyframes flapL{from{transform:rotate(-30deg)}to{transform:rotate(26deg)}}
+@keyframes flapR{from{transform:rotate(30deg)}to{transform:rotate(-26deg)}}
+@keyframes flyR{0%{transform:translateX(-120px)}55%,100%{transform:translateX(calc(100vw + 60px))}}
+@keyframes flyL{0%{transform:translateX(120px)}55%,100%{transform:translateX(calc(-100vw - 60px))}}
+@keyframes bob{0%,100%{transform:translateY(0)}30%{transform:translateY(-24px)}65%{transform:translateY(14px)}}
+@media(prefers-reduced-motion:reduce){}
+@media(prefers-reduced-motion:reduce){
+  html:not(.motion-on) *,html:not(.motion-on) *::before,html:not(.motion-on) *::after{animation:none!important; transition:none!important; scroll-behavior:auto!important}
+  html.js:not(.motion-on) .reveal{opacity:1; transform:none}
+}
+@media(max-width:520px){
+  body{font-size:18px}
+  .note{padding:1.1rem 1rem 1.1rem 4.2rem}.note .seal{width:46px;height:46px}
+  .web{width:130px;height:130px}
+}
+
+/* ==========================================================
+   8. ПЕЧАТЬ
+   ========================================================== */
+@media print{
+  body{background:#fff; color:#000; font-size:12pt}
+  body::before,body::after,svg,.web,.spider,.lace-div,.progress,.actions,.deco,.pumpkins,.candles,.candle,.invite .seal,.note .seal{display:none!important}
+  *{text-shadow:none!important; box-shadow:none!important; animation:none!important}
+  h1,h2,h3,.num,.glow,a,.flag,.script,.diary .lbl{color:#000!important}
+  .card,.note,.invite,.disclaimer{background:#fff!important; border:1px solid #666!important; break-inside:avoid}
+  .card::before,.card::after,.invite::before,.invite::after{display:none}
+  .js .reveal{opacity:1!important; transform:none!important}
+  textarea{background:none!important; border:1px solid #999!important; color:#000}
+  .muted,.hint,.sub,footer{color:#333!important}
+  .dc{background:none!important; color:#000!important; border-color:#666!important; outline:0!important}
+  .bat,.crawl,.spider,.footscene,.orn{display:none!important}
+  #results{display:block}
+}
+</style>
+</head>
+<body>
+
+<!-- Общие градиенты и фильтры для всех встроенных SVG -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gWax" x1="0" x2="1"><stop offset="0" stop-color="#9c8460"/><stop offset=".35" stop-color="#f1e1bf"/><stop offset=".7" stop-color="#cdb48a"/><stop offset="1" stop-color="#7d6845"/></linearGradient>
+    <radialGradient id="gFlame" cx=".5" cy=".75" r=".6"><stop offset="0" stop-color="#fff6d0"/><stop offset=".35" stop-color="#ffb95a"/><stop offset=".75" stop-color="#e07a1f"/><stop offset="1" stop-color="#c2561a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gHalo"><stop offset="0" stop-color="#ffb95a" stop-opacity=".55"/><stop offset=".5" stop-color="#e07a1f" stop-opacity=".18"/><stop offset="1" stop-color="#c2561a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gPump" cx=".4" cy=".35" r=".85"><stop offset="0" stop-color="#f29a3c"/><stop offset=".45" stop-color="#c2561a"/><stop offset="1" stop-color="#3b1708"/></radialGradient>
+    <radialGradient id="gPumpIn" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#ffb95a" stop-opacity=".5"/><stop offset="1" stop-color="#ffb95a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gSeal" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#e0671f"/><stop offset=".55" stop-color="#a4411a"/><stop offset="1" stop-color="#4d1a0b"/></radialGradient>
+    <radialGradient id="gSpB" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#6b4a28"/><stop offset=".5" stop-color="#2a1b0e"/><stop offset="1" stop-color="#0a0604"/></radialGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="2.5"/></filter>
+  </defs>
+</svg>
+
+<div class="progress" id="progress" aria-label="Прогресс теста">
+  <div class="in"><span id="progText">Отвечено 0 из 18</span><div class="wax" role="progressbar" aria-valuemin="0" aria-valuemax="18" aria-valuenow="0" id="progBar"><i id="progFill"></i></div></div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="web tl" data-deco="web"></div><div class="web tr" data-deco="web"></div>
+  <div class="spider" style="left:7%" data-deco="spider"></div>
+  <div class="spider" style="right:9%;width:52px;animation-delay:-5s" data-deco="spider"></div>
+  <div class="crawl" style="top:210px" data-deco="crawl"></div>
+  <div class="crawl rev" style="top:380px;animation-duration:52s" data-deco="crawl"></div>
+  <div class="wrap">
+    <div class="candles" aria-hidden="true">
+      <div class="candle" data-candle="120" data-big="1"></div><div class="candle" data-candle="170" data-f="b" data-big="1"></div><div class="candle" data-candle="140" data-f="c" data-big="1"></div>
+    </div>
+    <div class="lace-div" aria-hidden="true"></div>
+    <h1>Анатомия страха</h1>
+    <p class="sub">Как устроен твой страх и что его поддерживает</p>
+    <p class="intro dropcap">Выбери один повторяющийся страх, а не тревогу «вообще». Дальше разбери один эпизод, пройди опросник и посмотри, какие механизмы <span class="glow">поддерживают твой страх</span>.</p>
+    <p class="disclaimer" data-orn="lace">Опросник авторский и не является диагностическим инструментом. Он помогает рассуждать, а не ставит диагнозы.</p>
+  </div>
+  <div class="pumpkins" aria-hidden="true">
+    <div data-pumpkin="150"></div><div data-pumpkin="210"></div><div data-pumpkin="130"></div>
+  </div>
+</header>
+
+<main>
+<!-- ===================== I ===================== -->
+<section class="part reveal" id="s1" aria-labelledby="h1s">
+  <div class="wrap">
+    <div class="head"><div class="candle" data-candle="70" aria-hidden="true"></div><span class="num">I</span><h2 id="h1s">Сначала отдели страх от реальной опасности</h2></div>
+    <p class="dropcap">Выбери один повторяющийся страх, а не тревогу «вообще».</p>
+    <div class="card laced">
+      <fieldset><legend class="script">Перед тестом ответь:</legend>
+        <div id="yn1"></div>
+        <div class="counter" data-counter="s1"></div>
+      </fieldset>
+    </div>
+    <div class="note"><svg class="seal" viewBox="0 0 100 100" aria-hidden="true"><use href="#" /></svg>
+      Если угроза реальна, задача — <span class="glow">повысить безопасность</span>. Терпеть насилие, игнорировать симптомы или отказываться от разумных предосторожностей ради «победы над страхом» не нужно.</div>
+  </div>
+</section>
+<div class="lace-div" aria-hidden="true"></div>
+
+<!-- ===================== II (опросник) ===================== -->
+<section class="part reveal" id="s3" aria-labelledby="h3s">
+  <div class="web tr sm" data-deco="web"></div>
+  <div class="wrap">
+    <div class="head"><div class="candle" data-candle="70" aria-hidden="true"></div><span class="num">II</span><h2 id="h3s">Опросник: шесть механизмов страха</h2></div>
+    <p class="dropcap">Оцени каждое утверждение применительно к выбранному страху за последние две недели:</p>
+    <p class="scalekey"><span><b>0</b> — никогда</span><span><b>1</b> — редко</span><span><b>2</b> — иногда</span><span><b>3</b> — часто</span><span><b>4</b> — почти всегда</span></p>
+    <p class="hint" data-orn="spider" style="text-align:center">Если подходящей ситуации не было, ставь прочерк.</p>
+    <form id="testForm" onsubmit="return false" novalidate><div id="blocks"></div>
+      <div class="actions">
+        <button type="button" class="btn" id="showBtn">Показать результат</button>
+        <button type="button" class="btn ghost" id="resetBtn">Сбросить ответы</button>
+      </div>
+    </form>
+
+    <div id="results" tabindex="-1" aria-live="polite">
+      <div class="lace-div" aria-hidden="true"></div>
+      <div class="head"><div class="candle" data-candle="80" aria-hidden="true"></div><h2 id="resTitle" tabindex="-1">Твой результат</h2></div>
+      <div id="resBody"></div>
+    </div>
+
+    <div class="card" style="margin-top:3rem">
+      <h3>Как читать результат</h3>
+      <p data-orn="candle" style="margin-top:.8rem">Посчитай среднюю оценку каждого блока: сумма баллов, делённая на количество отвеченных пунктов. Если ответов меньше двух, вывод по блоку лучше отложить.</p>
+      <p data-orn="lace"><span class="glow">Не складывай всё в «процент страха»</span>: у этой суммы нет установленного клинического значения.</p>
+      <p class="hint" data-orn="scare" style="margin:0">Это гипотезы для проверки, а не заключения о твоей личности.</p>
+    </div>
+  </div>
+</section>
+<div class="lace-div" aria-hidden="true"></div>
+
+<!-- ===================== IV ===================== -->
+<section class="part reveal" id="s4" aria-labelledby="h4s">
+  <div class="web tl sm" data-deco="web"></div>
+  <div class="wrap">
+    <div class="head"><div class="candle" data-candle="70" aria-hidden="true"></div><span class="num">III</span><h2 id="h4s">Глубокие проверочные вопросы</h2></div>
+    <p class="dropcap">На каждый — несколько предложений. Не ищи «правильный» ответ.</p>
+    <div class="card laced">
+      <fieldset><legend class="script">Вопросы</legend>
+        <ul class="checks" data-list="s4"></ul><div class="counter" data-counter="s4"></div></fieldset>    </div>
+    <div class="card laced">
+      <h3 style="margin-bottom:.6rem">После этого сформулируй свою петлю:</h3>
+      <div id="loop"></div>
+    </div>
+  </div>
+</section>
+<div class="lace-div" aria-hidden="true"></div>
+
+<!-- ===================== V ===================== -->
+<section class="part reveal" id="s5" aria-labelledby="h5s">
+  <div class="wrap">
+    <div class="head"><div class="candle" data-candle="70" aria-hidden="true"></div><span class="num">IV</span><h2 id="h5s">Три практики: продвинутые чек-листы</h2></div>
+    <div id="practices"></div>
+
+    <div class="card laced">
+      <h3>Как оценить изменения через две недели</h3>
+      <p data-orn="candle" style="margin-top:.7rem">Сравни не только интенсивность страха, но и четыре показателя:</p>
+      <ul class="checks" data-list="s6"></ul><div class="counter" data-counter="s6"></div>
+      <p data-orn="scare" style="margin:1.2rem 0 0">Главный критерий — <span class="glow">не «мне больше не страшно», а «страх меньше определяет мою жизнь»</span>. Если он заметно нарушает сон, работу, отношения или делает упражнения непосильными, стоит обратиться к квалифицированному специалисту.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ФИНАЛ ===================== -->
+<section class="reveal" aria-label="Приглашение">
+  <div class="wrap">
+    <div class="invite">
+      <div class="seal" data-deco="seal" aria-hidden="true"></div>
+      <p>Если узнали себя в одном из этих сценариев, напишите слово «СТРАХ» <a href="https://t.me/RadaKs" target="_blank" rel="noopener noreferrer">@RadaKs</a> — расскажите свою ситуацию и мы разберём её на сессии (только для подписчиков моего канала <a href="https://t.me/coach_profiler" target="_blank" rel="noopener noreferrer">@coach_profiler</a>).</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">Данные не отправляются на сервер: ответы остаются только в твоём браузере.</div>
+  <div class="footscene" aria-hidden="true">
+    <div class="fl"><div data-pumpkin="170"></div><div data-pumpkin="120" style="margin-left:-14px"></div></div>
+    <div class="fr"><div data-pumpkin="110" style="margin-right:-10px"></div><div class="scare" data-deco="scare"></div></div>
+  </div>
+</footer>
+
+<dialog id="dlg" aria-labelledby="dlgT">
+  <p id="dlgT" style="margin:0">Сбросить все ответы теста? Это действие нельзя отменить.</p>
+  <div class="actions"><button class="btn" id="dlgYes" type="button">Сбросить</button><button class="btn ghost" id="dlgNo" type="button">Отмена</button></div>
+</dialog>
+
+<script>
+/* ==========================================================
+   ДАННЫЕ
+   ========================================================== */
+const LISTS = {
+  s1:["Есть ли сейчас конкретная угроза здоровью, безопасности или свободе — либо я главным образом прогнозирую её?",
+      "Обращались ли вы уже за какой-то профессиональной помощью?",
+      "Нужны ли здесь практические меры защиты, медицинская помощь, юридическая поддержка — вместо попыток «перестать бояться»?",
+      "Мешает ли данный страх/тревога вашей деятельности, решениям в жизни?"],
+  s4:["Что именно будет самым трудным, если мой прогноз сбудется? Сам ущерб, реакция окружающих или вывод, который я сделаю о себе?",
+      "Считаю ли я неприятный исход невыносимым — или действительно не имею ресурсов справиться? Каких именно ресурсов не хватает?",
+      "Какое наблюдение могло бы изменить мою оценку угрозы? Если никакое, не устроена ли моя гипотеза так, что её невозможно опровергнуть?",
+      "Не требую ли я от себя гарантировать то, что не находится под моим контролем?",
+      "Как я объясняю благополучные исходы? Разрешаю ли себе учиться на них или всегда нахожу причину продолжать бояться?",
+      "Если убрать одну привычную “страховку”, чего я ожидаю? Реального роста риска или прежде всего усиления дискомфорта?",
+      "Где заканчивается полезное обдумывание и начинается повторение одних и тех же вопросов?",
+      "Что страх обещает мне сохранить — и что уже заставляет потерять?"],
+  s6:["Сколько важных действий я сделал, несмотря на тревогу?",
+      "Сколько времени потратил на избегание, проверки и мысленное пережёвывание?",
+      "Насколько быстрее возвращался к делам после всплеска страха?",
+      "Что стало доступно мне из того, что раньше было закрыто?"]
+};
+const DIARY = [["Ситуация","что произошло?"],["Прогноз","чего я ожидал?"],["Смысл","что это означало бы для меня или обо мне?"],["Тело","какие ощущения появились?"],["Импульс","что захотелось сделать немедленно?"],["Действие","что я сделал?"],["Через 10 минут","стало ли легче?"],["На следующий день","моя свобода действий расширилась или сузилась?"]];
+const LOOP = ["Когда происходит ___, я предсказываю ___.","Для меня это означает ___.","Чтобы защититься, я ___.","Сразу это даёт ___, но со временем приводит к ___."];
+const BLOCKS = [
+ {id:"A",title:"Превращение возможности в вероятность",q:["Я отношусь к мысли «это может случиться» так, словно она означает «скорее всего, это случится».","Я подробно представляю катастрофу, но редко учитываю обычные, менее драматичные исходы.","Когда ничего плохого не происходит, я объясняю это везением, а не возможной ошибкой своего прогноза."]},
+ {id:"Б",title:"Скрытое значение угрозы",q:["Ошибка или отказ означают для меня не просто неприятное событие, а подтверждение моей несостоятельности или незначимости.","Мне трудно отделить чужую негативную реакцию от своей ценности как человека.","Возможность оказаться беспомощным, униженным или зависимым пугает меня сильнее, чем непосредственные последствия события."]},
+ {id:"В",title:"Страх самого страха",q:["Когда тревога усиливается, я думаю: «Я этого не выдержу», «Потеряю контроль» или «Это не закончится».","Даже, когда я допускаю просто мысль о неудачном результате или плохом опыте, это мгновенно отражается реакцией в теле.","Я считаю, что сначала должен успокоиться и только потом могу действовать."]},
+ {id:"Г",title:"Потребность в гарантиях",q:["Для обычного решения мне требуется больше уверенности, чем реально возможно получить.","Я продолжаю собирать информацию, хотя новые сведения почти не меняют решение.","Неопределённость кажется мне сама по себе признаком того, что ситуация небезопасна."]},
+ {id:"Д",title:"Избегание и защитные ритуалы",q:["Я отказываюсь от важных действий или откладываю их прежде всего ради снижения тревоги.","Я участвую в ситуации, но стараюсь остаться незаметным, всё контролировать или постоянно иметь поддержку — даже когда это не требуется для безопасности.","Я повторно проверяю, спрашиваю, репетирую или анализирую, хотя понимаю, что это даёт лишь краткое облегчение."]},
+ {id:"Е",title:"Цена страха и потеря гибкости",q:["Страх заставляет меня нарушать собственные границы или отказываться от значимых целей.","После тревожного события я долго мысленно его пересматриваю, но не прихожу к новым полезным выводам.","Мой круг допустимых действий постепенно сужается: то, что раньше было возможно, теперь кажется слишком рискованным."]}
+];
+const SCALE = [["0","никогда"],["1","редко"],["2","иногда"],["3","часто"],["4","почти всегда"],["—","не было ситуации"]];
+const PAIRS = [
+ {b:["A","Г"],h:"Ты пытаешься устранить неопределённость, воспринимая её как угрозу"},
+ {b:["Б","Е"],h:"За конкретным страхом может стоять болезненный вывод о себе"},
+ {b:["В","Д"],h:"Избегается не только ситуация, но и собственная тревожная реакция"},
+ {b:["Д","Е"],h:"Краткосрочное облегчение, вероятно, покупается ценой долгосрочных ограничений"}
+];
+/* Практики: p — индекс практики для ссылки из рекомендаций */
+const PRACTICES = [
+ {title:"Практика 1. Проверка прогноза через поведенческий эксперимент",when:"ты уверен в пугающем исходе, но эта уверенность основана преимущественно на предположениях.",
+  goal:"Задача — получить новые данные, а не убедить себя, что всё обязательно будет хорошо.",
+  items:["Запиши наблюдаемый прогноз — то, что можно реально увидеть или услышать со стороны, а не догадки о том, что обо мне подумают. Например: «Если я переспрошу коллегу, он вздохнёт и ответит резко». А расплывчатое «Все решат, что я глупый» проверить невозможно.","Оцени его вероятность: ___%.","Запиши альтернативу: «Он может спокойно ответить; лёгкое раздражение тоже возможно и не обязательно означает отвержение».","Выбери небольшой безопасный эксперимент.","Заранее реши, что будет считаться подтверждением, опровержением и неопределённым результатом.","Убери одну ненужную защиту, способную исказить проверку: например, спроси прямо и спокойно, без вступлений вроде «Простите, что отвлекаю, вопрос, наверное, глупый…». Иначе ты не узнаешь, на что отреагировал человек: на сам вопрос или на твою просьбу о снисхождении.","Проведи эксперимент и запиши только наблюдения, отдельно от интерпретаций.","Пересмотри вероятность и сформулируй ограниченный вывод: «В этой ситуации прогноз не подтвердился», а не «Теперь никто никогда меня не осудит»."],
+  sign:"ты точнее оцениваешь риск и лучше представляешь, как справиться с неприятным исходом.",extra:""},
+ {title:"Практика 2. Постепенное приближение с сокращением избегания",when:"ты уже понимаешь, что ситуация достаточно безопасна, но продолжаешь её избегать.",
+  goal:"Задача — приобрести опыт: «Я могу участвовать, даже когда мне тревожно».",
+  items:["Выбери важное действие, которое страх ограничивает.","Разбей его на 5–7 ступеней от посильной к сложной.","Начни со ступени, вызывающей ощутимую, но переносимую тревогу.","Перед попыткой запиши: «Я боюсь, что произойдёт ___».","Определи конкретное завершение задания: например, высказать одну мысль на встрече. Не ставь условие «пока полностью не успокоюсь».","Выполни действие, по возможности не прибегая к одной выбранной ненужной «страховке».","После запиши: «Чего я ожидал? Что случилось? С чем я сумел справиться?»","Повторяй в разных безопасных обстоятельствах, постепенно повышая сложность.","Если шаг оказался чрезмерным, уменьши его, а не делай вывод «метод мне не подходит»."],
+  sign:"расширяется поведение. Тревога может снижаться не сразу и колебаться от попытки к попытке.",
+  extra:"Не используй эту практику для рискованных физических испытаний или самостоятельного погружения в травматические воспоминания. При выраженных симптомах лучше составлять план со специалистом."},
+ {title:"Практика 3. Действие без полной уверенности",when:"ты застреваешь в проверках, поиске заверений, мысленном анализе и ожидании «правильного состояния».",
+  goal:"Задача — научиться оставлять часть неопределённости нерешённой.",
+  items:["Выбери небольшую, обратимую ситуацию с низкими ставками: обычное письмо, выбор фильма, бытовой план.","Заранее установи разумное правило: «Проверю адресата и содержание один раз — затем отправлю».","Когда появится позыв перепроверить, назови его: «Мне хочется гарантии, потому что мне тревожно».","Отдели мысль от факта: «У меня появилась мысль, что я мог ошибиться».","Не доказывай себе обратное бесконечно. Допусти: «Небольшая возможность ошибки остаётся».","Дай ощущениям немного места: почувствуй опору под ногами, замечай напряжение, не требуя его немедленно убрать.","Переключись на конкретное важное действие на ближайшие 5–10 минут.","Если позыв возвращается, снова замечай его и возвращай внимание. Не нужно повторять успокаивающую фразу до ощущения полной уверенности."],
+  sign:"ты реже обслуживаешь тревогу проверками и быстрее возвращаешься к жизни.",
+  extra:"Если появляются новые существенные факты, решение можно пересмотреть. Тренировка неопределённости — не отказ от разумной осторожности."}
+];
+/* Какая практика соответствует блоку (для «следующих шагов») */
+const STEP = {"A":0,"Б":0,"В":1,"Г":2,"Д":1,"Е":1};
+
+/* ==========================================================
+   ДЕКОРАТИВНЫЕ SVG
+   ========================================================== */
+const svgCandle = (h,f="",big=false)=>`<svg viewBox="0 0 80 ${h+90}" width="${Math.round((h+90)*.4)}" height="${h+90}" focusable="false">
+  <circle class="halo" cx="40" cy="42" r="${big?85:46}" fill="url(#gHalo)"/>
+  <g ${big?'transform="translate(40 58) scale(1.6) translate(-40 -58)"':''}>
+   <g class="flame c" opacity=".6" filter="url(#soft)"><path d="M40 6C26 30 25 49 40 62 55 49 54 30 40 6Z" fill="#ff9a3c"/></g>
+   <g class="flame ${f}"><path d="M40 12C30 30 29 46 40 58 51 46 50 30 40 12Z" fill="url(#gFlame)"/><path d="M40 34C36 42 36 50 40 55 44 50 44 42 40 34Z" fill="#fff6d0" opacity=".9"/></g>
+  </g>
+  <path d="M40 56v10" stroke="#1a110a" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M22 66h36v${h}H22z" fill="url(#gWax)"/>
+  <ellipse cx="40" cy="66" rx="18" ry="4" fill="#e8d6ae"/><ellipse cx="40" cy="66.5" rx="9" ry="2" fill="#f0a64a" opacity=".6"/>
+  <path d="M22 70c0 14 3 20 5 20s2-8 2-14M45 70c0 18 3 34 5.5 34S54 90 54 80" fill="none" stroke="#f1e1bf" stroke-width="5" stroke-linecap="round" opacity=".9"/>
+  <path d="M22 ${66+h}h36" stroke="#6b5a3c" stroke-width="2"/>
+  <ellipse cx="40" cy="${70+h}" rx="30" ry="6" fill="#1a110a" stroke="#b8955a" stroke-width="1.2"/>
+</svg>`;
+const svgPumpkin = (w,eyes=false)=>`<svg viewBox="0 0 200 170" width="${w}" focusable="false">
+  <ellipse cx="100" cy="158" rx="82" ry="9" fill="#000" opacity=".7" filter="url(#soft)"/>
+  <circle cx="100" cy="95" r="88" fill="url(#gPumpIn)"/>
+  <ellipse cx="46" cy="96" rx="40" ry="56" fill="url(#gPump)"/><ellipse cx="154" cy="96" rx="40" ry="56" fill="url(#gPump)"/>
+  <ellipse cx="72" cy="96" rx="40" ry="62" fill="url(#gPump)"/><ellipse cx="128" cy="96" rx="40" ry="62" fill="url(#gPump)"/>
+  <ellipse cx="100" cy="96" rx="34" ry="66" fill="url(#gPump)"/>
+  <g fill="none" stroke="#2c1006" stroke-width="2.2" opacity=".75" stroke-linecap="round">
+   <path d="M100 32C84 60 84 130 100 158"/><path d="M100 32C116 60 116 130 100 158"/>
+   <path d="M70 38C46 66 46 126 72 154"/><path d="M130 38C154 66 154 126 128 154"/>
+   <path d="M44 52C20 76 22 118 48 140"/><path d="M156 52C180 76 178 118 152 140"/></g>
+  <ellipse cx="82" cy="62" rx="20" ry="10" fill="#ffd9a0" opacity=".22" transform="rotate(-20 82 62)"/>
+  <path d="M92 36c-2-14 0-22 6-26h8c2 6 3 18 1 26" fill="#3a2a12" stroke="#1d130a" stroke-width="1.5"/>
+  <path d="M108 20c14-8 26-4 28 8" fill="none" stroke="#b8955a" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+  <ellipse cx="100" cy="36" rx="14" ry="4" fill="#1d130a"/>
+  ${eyes?`<circle class="halo" cx="78" cy="86" r="22" fill="url(#gHalo)"/><circle class="halo" cx="122" cy="86" r="22" fill="url(#gHalo)"/>
+  <g class="eyes"><path d="M64 90L90 76 88 98Z" fill="#fff0c4" stroke="#2c1006" stroke-width="2.2" stroke-linejoin="round"/><path d="M136 90L110 76 112 98Z" fill="#fff0c4" stroke="#2c1006" stroke-width="2.2" stroke-linejoin="round"/></g>`:""}
+</svg>`;
+const svgSpider = (len)=>`<svg viewBox="0 0 70 ${len+60}" width="100%" focusable="false"><path d="M35 0V${len}" stroke="#b8955a" stroke-width="1" opacity=".55"/>
+  <g transform="translate(35 ${len+22})" fill="#0a0705" stroke="#2a1d10" stroke-width="1">
+  <g fill="none" stroke="#1d140b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+   <path d="M-6-4L-22-18-30-6M-7 0L-28 0-34 14M-6 4L-22 18-26 30M-4 8L-14 26-14 38"/><path d="M6-4L22-18 30-6M7 0L28 0 34 14M6 4L22 18 26 30M4 8L14 26 14 38"/></g>
+  <ellipse cx="0" cy="8" rx="11" ry="15"/><ellipse cx="0" cy="-8" rx="7" ry="8"/>
+  <path d="M-3 12q3 6 6 0-3-4-6 0z" fill="#c2561a" stroke="none" opacity=".7"/>
+  <circle cx="-2.5" cy="-10" r="1.2" fill="#ffb95a" stroke="none"/><circle cx="2.5" cy="-10" r="1.2" fill="#ffb95a" stroke="none"/></g></svg>`;
+const svgWeb = `<svg viewBox="0 0 200 200" width="100%" height="100%" fill="none" stroke="#b8955a" stroke-linecap="round" focusable="false">
+  <g stroke-width=".9" opacity=".8"><path d="M0 0L200 20M0 0L190 80M0 0L150 150M0 0L80 190M0 0L20 200M0 0L195 45M0 0L120 175"/></g>
+  <g stroke-width=".6" opacity=".7">${[28,52,80,112,148,188].map(r=>`<path d="M${r*.98} ${r*.1}Q${r*.78} ${r*.5} ${r*.62} ${r*.78}Q${r*.45} ${r*.88} ${r*.1} ${r*.98}"/>`).join("")}</g></svg>`;
+const svgSeal = `<svg viewBox="0 0 100 100" width="100%" height="100%" focusable="false">
+  <path filter="url(#rough)" fill="url(#gSeal)" d="M50 4c10 0 14 6 22 8s16 4 18 14 6 14 4 24-6 14-8 22-8 14-18 18-14 4-24 6-16-4-22-8-12-12-14-20-6-14-4-24 8-14 12-22 12-14 20-16 8-2 14-2z"/>
+  <circle cx="50" cy="50" r="30" fill="none" stroke="#ffb95a" stroke-opacity=".5" stroke-width="2"/><circle cx="50" cy="50" r="24" fill="none" stroke="#2a0f06" stroke-opacity=".5" stroke-width="1.2"/>
+  <g fill="none" stroke="#ffd9a0" stroke-opacity=".75" stroke-width="2.4" stroke-linecap="round"><circle cx="50" cy="38" r="8"/><path d="M50 46V68M50 58h8M50 66h6"/></g></svg>`;
+const svgKey = `<svg viewBox="0 0 160 50" width="150" focusable="false" fill="none" stroke="#b8955a" stroke-width="2.4" stroke-linecap="round"><circle cx="24" cy="25" r="16"/><circle cx="24" cy="25" r="7"/><path d="M40 25h108M128 25v14M142 25v10M114 25v8"/></svg>`;
+const svgNail = `<svg class="deco" style="top:-12px;left:50%;transform:translateX(-50%)" viewBox="0 0 120 40" width="120" height="40" focusable="false" aria-hidden="true"><g stroke="#b8955a" stroke-width="1" opacity=".7"><path d="M60 8L8 40M60 8L112 40"/></g><circle cx="60" cy="8" r="6" fill="#7a3a14" stroke="#2a1006"/><circle cx="58.5" cy="6.5" r="2" fill="#c2561a"/></svg>`;
+
+/* ==========================================================
+   СОСТОЯНИЕ (localStorage)
+   ========================================================== */
+const KEY = "fear-anatomy-v1";
+let S = {};
+try{ S = JSON.parse(localStorage.getItem(KEY)||"{}") }catch(e){ S = {} }
+const save = ()=>{ try{ localStorage.setItem(KEY, JSON.stringify(S)) }catch(e){} };
+const esc = s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+
+/* Строка с пропусками ___ -> inline-инпуты */
+function withBlanks(text, prefix, wide){
+  let i=0; return esc(text).replace(/___/g,()=>`<input class="blank${wide?" wide":""}" type="text" data-key="${prefix}-b${i++}" aria-label="Пропуск ${i}">`);
+}
+/* Чек-лист */
+function renderList(ul, id, items, prefix, o={}){
+  ul.innerHTML = items.map((t,i)=>`<li><label class="chk"><input type="checkbox" data-key="${prefix}-${i}" data-group="${id}"><span class="mark${o.num?" num":""}" aria-hidden="true">${o.num?i+1:""}</span><span class="t">${withBlanks(t, prefix+"-"+i)}</span></label>${o.ans?`<textarea class="ans" rows="1" data-key="${prefix}a-${i}" data-i="${i}" data-g="${prefix}" placeholder="Впиши свой ответ…" aria-label="Ответ на вопрос ${i+1}"></textarea>`:""}</li>`).join("");
+}
+document.querySelectorAll("[data-list]").forEach(ul=>{
+  const id=ul.dataset.list; renderList(ul,id,LISTS[id],id,id==="s4"?{num:true,ans:true}:id==="s6"?{ans:true}:{});
+});
+/* Раздел I: ответы Да / Нет */
+document.getElementById("yn1").innerHTML = LISTS.s1.map((t,i)=>`<div class="yq" role="radiogroup" aria-labelledby="yq${i}"><div class="yt" id="yq${i}"><span class="n">${i+1}.</span>${esc(t)}</div><div class="yn"><label><input type="radio" name="s1-${i}" value="yes" data-key="s1-${i}"><span>Да</span></label><label><input type="radio" name="s1-${i}" value="no" data-key="s1-${i}"><span>Нет</span></label></div></div>`).join("");
+/* Петля */
+document.getElementById("loop").innerHTML = LOOP.map((l,i)=>`<p class="script" style="font-size:1.35rem">${withBlanks(l,"loop"+i,true)}</p>`).join("");
+/* Практики */
+document.getElementById("practices").innerHTML = PRACTICES.map((p,k)=>`
+ <article class="card laced" id="practice${k+1}" style="margin-top:3rem">${svgNail}
+  <h3 style="margin-top:.6rem">${esc(p.title)}</h3>
+  <p data-orn="candle" style="margin-top:.8rem"><span class="script">Подходит, когда:</span> ${esc(p.when)}</p>
+  <p data-orn="lace"><span class="glow">${esc(p.goal)}</span></p>
+  <ul class="checks" data-list="p${k}"></ul><div class="counter" data-counter="p${k}"></div>
+  <p data-orn="spider" style="margin:1.1rem 0 0"><span class="script">Признак прогресса:</span> ${esc(p.sign)}</p>
+  ${p.extra?`<p class="warn" data-orn="scare">${esc(p.extra)}</p>`:""}
+ </article>`).join("");
+PRACTICES.forEach((p,k)=>{ const ul=document.querySelector(`[data-list="p${k}"]`); renderList(ul,"p"+k,p.items,"p"+k); });
+
+/* Тест */
+const blocksEl = document.getElementById("blocks");
+let qn = 0;
+blocksEl.innerHTML = BLOCKS.map((b,bi)=>`
+ <div class="card laced" data-block="${bi}"><h3><span class="num" style="display:inline;margin-right:.6rem">${b.id}.</span>${esc(b.title)}</h3>
+  ${b.q.map((q,qi)=>{ const n=++qn, name=`q${bi}_${qi}`; return `
+  <fieldset class="q"><legend><span class="n">${n}.</span>${esc(q)}</legend><div class="scale">
+   ${SCALE.map((s,si)=>`<label class="med"><input type="radio" name="${name}" value="${si===5?"x":si}" data-key="${name}"><span class="c" aria-hidden="true">${s[0]}</span><span class="w" aria-hidden="true">${s[1]}</span><span class="sr">${s[0]==="—"?"Прочерк — "+s[1]:s[0]+" — "+s[1]}</span></label>`).join("")}
+  </div></fieldset>`}).join("")}
+  <p class="blockres" aria-live="polite" id="br${bi}"></p></div>`).join("");
+
+/* ----- Пауки, летучие мыши, чучело, мини-орнаменты ----- */
+const spiderInner = ()=>`<g fill="none" stroke="#9a7848" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+ <g class="la"><path d="M72 27Q82 15 97 14"/><path d="M64 25Q60 10 48 4"/><path d="M68 33Q74 48 86 55"/><path d="M60 33Q48 46 28 52"/></g>
+ <g class="lb"><path d="M68 25Q74 10 87 5"/><path d="M60 27Q48 14 28 8"/><path d="M72 33Q82 45 97 46"/><path d="M64 35Q60 50 48 56"/></g></g>
+ <ellipse cx="38" cy="30" rx="22" ry="15" fill="url(#gSpB)" stroke="#6b5030" stroke-width=".9"/>
+ <path d="M26 30Q38 21 50 30Q38 39 26 30Z" fill="#c2561a" opacity=".55"/>
+ <ellipse cx="32" cy="23" rx="9" ry="4" fill="#ffd9a0" opacity=".16"/>
+ <ellipse cx="66" cy="30" rx="12" ry="9" fill="url(#gSpB)" stroke="#6b5030" stroke-width=".9"/>
+ <path d="M76 26Q82 22 87 24M76 34Q82 38 87 36" stroke="#6b5030" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+ <g fill="#ffb95a"><circle cx="74" cy="27" r="1.2"/><circle cx="74" cy="33" r="1.2"/><circle cx="71" cy="25" r="1"/><circle cx="71" cy="35" r="1"/></g>`;
+const svgCrawler = ()=>`<svg viewBox="0 0 120 60" width="100%" focusable="false">${spiderInner()}</svg>`;
+const svgHang = ()=>`<svg viewBox="0 0 60 120" width="100%" focusable="false"><g transform="translate(60 0) rotate(90)">${spiderInner()}</g></svg>`;
+const svgBat = ()=>`<svg viewBox="0 0 100 130" width="100%" focusable="false">
+ <path d="M44 0v12M56 0v12" stroke="#6b5030" stroke-width="2.5" stroke-linecap="round"/>
+ <g fill="#0c0806" stroke="#5a4428" stroke-width="1.2" stroke-linejoin="round">
+  <path d="M50 12C34 14 14 40 10 100 22 92 28 100 34 112 38 98 44 92 50 96 56 92 62 98 66 112 72 100 78 92 90 100 86 40 66 14 50 12Z"/>
+  <ellipse cx="50" cy="52" rx="13" ry="30" fill="#17100a"/>
+  <circle cx="50" cy="106" r="9" fill="#17100a"/>
+  <path d="M43 101L39 118 48 110M57 101L61 118 52 110"/></g>
+ <g stroke="#4a3520" stroke-width="1" fill="none"><path d="M50 14C40 40 30 70 22 100M50 14C42 40 38 70 34 112M50 14C58 40 62 70 66 112M50 14C60 40 70 70 78 100"/></g>
+ <circle cx="46" cy="108" r="1.5" fill="#ffb95a"/><circle cx="54" cy="108" r="1.5" fill="#ffb95a"/></svg>`;
+const svgScare = ()=>`<svg viewBox="0 0 200 300" focusable="false">
+ <circle class="halo" cx="100" cy="100" r="110" fill="url(#gHalo)"/>
+ <rect x="96" y="44" width="8" height="256" fill="#3a2a14"/>
+ <rect x="14" y="110" width="172" height="8" rx="3" fill="#4a3620"/>
+ <path d="M64 106L136 106 146 192 128 186 120 202 100 192 80 202 72 186 54 192Z" fill="#5a2410" stroke="#2a1006"/>
+ <path d="M64 106L14 108 8 128 68 134Z M136 106L186 108 192 128 132 134Z" fill="#6b2a10" stroke="#2a1006"/>
+ <g stroke="#b8955a" stroke-width="1.6" stroke-linecap="round"><path d="M10 124l-8 8M12 128l-9 2M13 131l-6 10M188 124l8 8M186 128l9 2M185 131l6 10M88 198l-6 14M96 198l-2 16M104 198l3 15M112 198l8 12"/></g>
+ <g stroke="#b8955a" stroke-width=".8" opacity=".35"><path d="M70 130h60M72 150h56M74 170h52M84 108v82M100 108v82M116 108v82"/></g>
+ <rect x="84" y="134" width="18" height="15" fill="#3a1a0a" stroke="#b8955a" stroke-dasharray="2 2"/>
+ <circle cx="100" cy="76" r="25" fill="#a8895a" stroke="#5c4026" stroke-width="1.5"/>
+ <circle cx="90" cy="72" r="11" fill="url(#gHalo)"/><circle cx="110" cy="72" r="11" fill="url(#gHalo)"/>
+ <circle class="halo" cx="90" cy="72" r="4" fill="#ffd9a0"/><circle class="halo" cx="110" cy="72" r="4" fill="#ffd9a0"/>
+ <path d="M86 90H114" stroke="#3a2a14" stroke-width="1.6"/><path d="M89 87v6M94 87v6M100 87v6M106 87v6M111 87v6" stroke="#3a2a14" stroke-width="1.4"/>
+ <ellipse cx="100" cy="56" rx="50" ry="9" fill="#15100b" stroke="#b8955a" stroke-width=".8"/>
+ <path d="M70 56C72 22 128 22 130 56Z" fill="#1d140b" stroke="#b8955a" stroke-width=".8"/>
+ <path d="M71 49H129" stroke="#c2561a" stroke-width="5"/>
+ <g stroke="#b8955a" stroke-width="1.6" stroke-linecap="round"><path d="M56 58l-8 8M62 60l-7 10M138 60l7 10M144 58l8 8"/></g></svg>`;
+const ORN = {
+ candle:`<svg viewBox="0 0 20 40" focusable="false"><g class="flame"><path d="M10 2C5 11 5 17 10 22 15 17 15 11 10 2Z" fill="url(#gFlame)"/></g><rect x="4" y="22" width="12" height="16" fill="url(#gWax)"/><path d="M4 38h12" stroke="#6b5a3c"/></svg>`,
+ spider:`<svg viewBox="0 0 120 60" focusable="false">${spiderInner()}</svg>`,
+ lace:`<svg viewBox="0 0 60 20" focusable="false" fill="none" stroke="#b8955a" stroke-width="1.2" stroke-linecap="round"><path d="M2 10Q12 0 22 10T42 10"/><path d="M2 10Q12 20 22 10T42 10" opacity=".6"/><circle cx="12" cy="5" r="1.6" fill="#b8955a"/><circle cx="32" cy="15" r="1.6" fill="#b8955a"/><circle cx="22" cy="10" r="2.6"/><path d="M42 10Q50 4 58 10Q50 16 42 10Z"/></svg>`,
+ scare:`<svg viewBox="0 0 40 40" focusable="false"><ellipse cx="20" cy="14" rx="17" ry="4" fill="#15100b" stroke="#b8955a" stroke-width=".8"/><path d="M9 14C10 3 30 3 31 14Z" fill="#1d140b" stroke="#b8955a" stroke-width=".8"/><path d="M9.5 11h21" stroke="#c2561a" stroke-width="2"/><circle cx="20" cy="26" r="9" fill="#a8895a" stroke="#5c4026"/><circle cx="16.5" cy="24" r="1.7" fill="#ffd9a0"/><circle cx="23.5" cy="24" r="1.7" fill="#ffd9a0"/><path d="M15 30h10M17 29v2M20 29v2M23 29v2" stroke="#3a2a14" stroke-width="1"/></svg>`
+};
+
+/* Декор */
+document.querySelectorAll("[data-candle]").forEach(e=>e.innerHTML=svgCandle(+e.dataset.candle,e.dataset.f||"",!!e.dataset.big));
+document.querySelectorAll("[data-pumpkin]").forEach(e=>e.innerHTML=svgPumpkin(+e.dataset.pumpkin,!!e.dataset.eyes));
+document.querySelectorAll('[data-deco="spider"]').forEach(e=>{e.innerHTML='<div class="thread"></div><div class="hs">'+svgHang()+'</div>'; e.setAttribute("aria-hidden","true")});
+document.querySelectorAll('[data-deco="crawl"]').forEach(e=>{e.innerHTML='<div class="cr">'+svgCrawler()+'</div>'; e.setAttribute("aria-hidden","true")});
+document.querySelectorAll('[data-deco="bat"]').forEach(e=>{e.innerHTML=svgBat(); e.setAttribute("aria-hidden","true")});
+document.querySelectorAll('[data-deco="scare"]').forEach(e=>e.innerHTML=svgScare());
+document.querySelectorAll('[data-deco="web"]').forEach(e=>{e.innerHTML=svgWeb; e.setAttribute("aria-hidden","true")});
+document.querySelectorAll('[data-deco="seal"]').forEach(e=>e.innerHTML=svgSeal);
+document.querySelectorAll(".note .seal").forEach(e=>{ const d=document.createElement("div"); d.className="seal"; d.setAttribute("aria-hidden","true"); d.innerHTML=svgSeal; e.replaceWith(d); });
+
+/* Восстановление сохранённых значений и подписка на изменения */
+document.querySelectorAll("[data-key]").forEach(el=>{
+  const k=el.dataset.key;
+  if(el.type==="checkbox") el.checked=!!S[k];
+  else if(el.type==="radio") el.checked=(S[k]===el.value);
+  else if(S[k]!==undefined) el.value=S[k];
+});
+/* Поля ответов растут по мере ввода */
+function grow(t){ t.style.height="auto"; t.style.height=t.scrollHeight+"px"; }
+document.querySelectorAll(".ans").forEach(grow);
+addEventListener("resize",()=>document.querySelectorAll(".ans").forEach(grow));
+
+/* ==========================================================
+   СЧЁТЧИКИ И ЛОГИКА ТЕСТА
+   ========================================================== */
+function updateCounters(){
+  document.querySelectorAll("[data-counter]").forEach(c=>{
+    const g=c.dataset.counter;
+    let n,tot,word="Отмечено";
+    if(g==="s1"){ tot=LISTS.s1.length; n=LISTS.s1.filter((_,i)=>S["s1-"+i]).length; word="Отвечено"; }
+    else { const boxes=document.querySelectorAll(`input[data-group="${g}"]`); tot=boxes.length; n=[...boxes].filter(b=>b.checked).length; }
+    c.innerHTML=`<span>${word} ${n} из ${tot}</span><span class="bar" aria-hidden="true"><i style="width:${n/tot*100}%"></i></span>`;
+  });
+}
+const fmt = n=>n.toFixed(2).replace(".",",");
+function blockStats(bi){
+  let sum=0,num=0,dash=0;
+  BLOCKS[bi].q.forEach((_,qi)=>{ const v=S[`q${bi}_${qi}`]; if(v==="x")dash++; else if(v!==undefined){sum+=+v;num++} });
+  return {sum,num,dash,avg:num?sum/num:null};
+}
+function updateTest(){
+  let answered=0;
+  BLOCKS.forEach((b,bi)=>{
+    const s=blockStats(bi); answered+=s.num+s.dash;
+    const el=document.getElementById("br"+bi);
+    el.innerHTML = (s.num+s.dash===0) ? "" :
+      `Сумма баллов: <b>${s.sum}</b> из 12 · Среднее: <b>${s.avg===null?"—":fmt(s.avg)}</b> из 4 · Ответов «—»: <b>${s.dash}</b>`+(s.num<2?` <span class="muted">· Пока слишком мало числовых ответов для вывода по блоку.</span>`:"");
+  });
+  document.getElementById("progText").textContent=`Отвечено ${answered} из 18`;
+  document.getElementById("progFill").style.width=(answered/18*100)+"%";
+  document.getElementById("progBar").setAttribute("aria-valuenow",answered);
+  if(document.getElementById("results").classList.contains("on")) renderResults(false);
+}
+function renderResults(focus){
+  const res=document.getElementById("results"), body=document.getElementById("resBody");
+  const st=BLOCKS.map((_,i)=>blockStats(i));
+  const total=st.reduce((a,s)=>a+s.sum,0), nums=st.reduce((a,s)=>a+s.num,0), dashes=st.reduce((a,s)=>a+s.dash,0);
+  const ok=st.map(s=>s.num>=2);
+  /* блоки с наибольшими средними: два лучших значения (с учётом равных), только > 0 */
+  const vals=[...new Set(st.filter((s,i)=>ok[i]&&s.avg>0).map(s=>s.avg))].sort((a,b)=>b-a);
+  const cut=vals.length?vals[Math.min(1,vals.length-1)]:Infinity;
+  const top=st.map((s,i)=>ok[i]&&s.avg>0&&s.avg>=cut);
+
+  let h=`<div class="card laced"><div class="big"><div><b>${total}</b><span>общая сумма из 72</span></div><div><b>${nums}</b><span>числовых ответов</span></div><div><b>${dashes}</b><span>ответов «—»</span></div></div>
+   <div class="therm">${BLOCKS.map((b,i)=>{const s=st[i];return `<div class="row"><div class="lab"><b>${b.id}. ${esc(b.title)}</b><span>${ok[i]?"среднее "+fmt(s.avg):"вывод отложен"}</span></div>
+     <div class="tube${ok[i]?"":" off"}" role="img" aria-label="${b.title}: ${ok[i]?"среднее "+fmt(s.avg)+" из 4":"вывод отложен"}"><i data-w="${ok[i]?s.avg/4*100:100}" style="width:${ok[i]?s.avg/4*100:100}%"></i></div>
+     <div class="ticks" aria-hidden="true"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span></div>
+     <div class="cap">${ok[i]?(top[i]?"Обрати внимание в первую очередь.":"Среднее по трём утверждениям блока."):"Меньше двух числовых ответов — вывод по блоку лучше отложить, это нормально: можно вернуться к тесту позже."}</div></div>`}).join("")}</div></div>`;
+
+  if(nums===0){ h=`<div class="card"><p style="margin:0">Пока нет числовых ответов. Отметь утверждения выше — результат появится здесь и будет обновляться сразу.</p></div>`; }
+  else{
+    /* Вопросы для проверки */
+    h+=`<div class="head" style="margin-top:3rem"><h3 style="font-size:1.8rem">Вопросы для проверки</h3><p class="hint">Гипотеза по каждому заполненному блоку — это рабочие версии для проверки, а не выводы о тебе.</p></div><div class="grid">`;
+    BLOCKS.forEach((b,i)=>{ if(!ok[i])return;
+      const rel=PAIRS.filter(p=>p.b.includes(b.id));
+      h+=`<div class="card laced${top[i]?" top":""}">${top[i]?`<span class="flag">Обрати внимание в первую очередь</span><br>`:""}<h3>${b.id}. ${esc(b.title)} <span class="muted" style="font-size:1rem">— среднее ${fmt(st[i].avg)}</span></h3>
+        ${rel.map(p=>{const other=p.b.find(x=>x!==b.id), oi=BLOCKS.findIndex(x=>x.id===other), both=ok[oi];
+          return `<p style="margin:.8rem 0 0"><span class="muted">Выделяются блоки:</span> ${p.b.join(" + ")}<br><span class="muted">Возможная рабочая гипотеза:</span> <span class="${both&&top[i]&&top[oi]?"glow":""}">${esc(p.h)}</span>${both?"":` <span class="muted">(второй блок пары пока не заполнен)</span>`}</p>`}).join("")}
+      </div>`;});
+    h+=`</div>`;
+    /* Следующие шаги */
+    h+=`<div class="head" style="margin-top:3rem"><h3 style="font-size:1.8rem">Возможные следующие шаги</h3></div><div class="grid">`;
+    BLOCKS.forEach((b,i)=>{ if(!ok[i])return; const p=PRACTICES[STEP[b.id]];
+      h+=`<div class="card${top[i]?" top":""}"><h3>${b.id}. ${esc(b.title)}</h3><p style="margin:.6rem 0 0">Практика, с которой можно начать: <a href="#practice${STEP[b.id]+1}">${esc(p.title)}</a>. <span class="muted">Подходит, когда ${esc(p.when)}</span></p></div>`;});
+    h+=`</div>`;
+  }
+  h+=`<p class="warn"><span class="orn" aria-hidden="true">${ORN.lace}</span>Клинических порогов у этого опросника нет. Результат — ориентир для размышления, а не диагноз.</p>`;
+  body.innerHTML=h;
+  res.classList.add("on");
+  if(focus){
+    const rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+    res.scrollIntoView({behavior:rm?"auto":"smooth",block:"start"});
+    setTimeout(()=>document.getElementById("resTitle").focus({preventScroll:true}),rm?0:500);
+  }
+}
+
+/* События ввода: всё сохраняется сразу */
+document.addEventListener("input",e=>{
+  const el=e.target; if(!el.dataset||!el.dataset.key)return;
+  if(el.type==="checkbox") S[el.dataset.key]=el.checked;
+  else if(el.type==="radio"){ if(el.checked) S[el.dataset.key]=el.value; }
+  else S[el.dataset.key]=el.value;
+  if(el.classList&&el.classList.contains("ans")){ grow(el); const cb=document.querySelector(`input[data-key="${el.dataset.g}-${el.dataset.i}"]`); if(cb){ cb.checked=el.value.trim().length>0; S[cb.dataset.key]=cb.checked; } }
+  save(); updateCounters(); if(el.type==="radio") updateTest();
+});
+document.getElementById("showBtn").addEventListener("click",()=>renderResults(true));
+
+/* Сброс с подтверждением */
+const dlg=document.getElementById("dlg");
+function doReset(){
+  Object.keys(S).forEach(k=>{ if(/^q\d_\d$/.test(k)) delete S[k]; });
+  document.querySelectorAll('#testForm input[type=radio]').forEach(r=>r.checked=false);
+  save(); document.getElementById("results").classList.remove("on"); updateTest();
+}
+document.getElementById("resetBtn").addEventListener("click",()=>{
+  if(dlg.showModal) dlg.showModal(); else if(confirm("Сбросить все ответы теста?")) doReset();
+});
+document.getElementById("dlgYes").addEventListener("click",()=>{dlg.close(); doReset();});
+document.getElementById("dlgNo").addEventListener("click",()=>dlg.close());
+
+/* Появление секций при прокрутке */
+const io = "IntersectionObserver" in window ? new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){en.target.classList.add("in"); io.unobserve(en.target)} }),{threshold:.08}) : null;
+document.querySelectorAll(".reveal").forEach(el=> io ? io.observe(el) : el.classList.add("in"));
+
+/* Буквицы (целая буква, не обрезается) и мини-орнаменты в начале предложений */
+function dropcap(p){ const w=document.createTreeWalker(p,NodeFilter.SHOW_TEXT); let n; while((n=w.nextNode())){ if(n.nodeValue.trim()){ const t=n.nodeValue.replace(/^\s+/,""); const sp=document.createElement("span"); sp.className="dc"; sp.textContent=t[0]; n.nodeValue=t.slice(1); n.parentNode.insertBefore(sp,n); break; } } }
+document.querySelectorAll(".dropcap").forEach(dropcap);
+/* Летающие мыши: по одной в разделах I–IV (не в шапке и не внизу) */
+const svgFly = ()=>`<svg viewBox="0 0 120 60" width="100%" focusable="false">
+ <g fill="#0c0806" stroke="#6b5030" stroke-width="1.2" stroke-linejoin="round">
+  <path class="wl" d="M54 30C40 14 20 10 4 20 10 22 14 26 16 32 20 28 26 30 28 36 34 32 40 34 44 38 48 36 52 34 54 30Z"/>
+  <path class="wr" d="M66 30C80 14 100 10 116 20 110 22 106 26 104 32 100 28 94 30 92 36 86 32 80 34 76 38 72 36 68 34 66 30Z"/>
+  <ellipse cx="60" cy="32" rx="7" ry="11" fill="#17100a"/><circle cx="60" cy="20" r="6" fill="#17100a"/>
+  <path d="M55 17L54 8 59 14M65 17L66 8 61 14"/></g>
+ <circle cx="58" cy="20" r="1" fill="#ffb95a"/><circle cx="62" cy="20" r="1" fill="#ffb95a"/></svg>`;
+[["s1",130,27,0,false],["s3",300,33,-12,true],["s4",220,29,-6,false],["s5",260,36,-20,true]].forEach(([id,top,dur,delay,rev])=>{
+  const sec=document.getElementById(id); if(!sec)return;
+  const f=document.createElement("div"); f.className="flyer"+(rev?" rev":""); f.style.top=top+"px"; f.style.animationDuration=dur+"s"; f.style.animationDelay=delay+"s";
+  f.setAttribute("aria-hidden","true"); f.innerHTML='<div class="fy">'+svgFly()+'</div>'; sec.appendChild(f);
+});
+
+/* Нажатие на пламя свечи — оно колышется */
+document.addEventListener("click",e=>{
+  const c=e.target.closest&&e.target.closest(".candle,.orn"); if(!c||!c.querySelector(".flame"))return;
+  c.classList.remove("blow"); void c.getBoundingClientRect(); c.classList.add("blow");
+  clearTimeout(c._t); c._t=setTimeout(()=>c.classList.remove("blow"),1600);
+});
+
+/* Если в системе включено «уменьшить движение», анимации выключены — даём кнопку, чтобы включить */
+if(matchMedia("(prefers-reduced-motion: reduce)").matches){
+  const b=document.createElement("button"); b.type="button"; b.className="btn ghost motionbtn"; b.textContent="Включить анимацию";
+  b.addEventListener("click",()=>{ document.documentElement.classList.add("motion-on"); b.remove(); });
+  document.body.appendChild(b);
+}
+document.querySelectorAll("[data-orn]").forEach(el=>el.insertAdjacentHTML("afterbegin",`<span class="orn" aria-hidden="true">${ORN[el.dataset.orn]}</span>`));
+
+updateCounters(); updateTest();
+</script>
+</body>
+</html>
